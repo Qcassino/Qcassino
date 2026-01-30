@@ -14,7 +14,14 @@
     <h2>📝 Criar conta</h2>
 
     <input id="nome" placeholder="Nome completo">
-    <input id="cpf" placeholder="CPF">
+    <input
+      id="cpf"
+      type="text"
+      placeholder="000.000.000-00"
+      maxlength="14"
+      inputmode="numeric"
+      oninput="this.value = this.value.replace(/[^0-9.-]/g, '')"
+    />
     <input id="nascimento" type="date">
     <input id="email" type="email">
     <input id="senha" type="password">
@@ -34,6 +41,7 @@
 
 </body>
 </html>
+
 
 
 
