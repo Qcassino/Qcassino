@@ -1,123 +1,75 @@
-import { auth, db } from "./firebase.js";
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { 
+  getFirestore, 
+  doc, 
+  setDoc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import {
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// ELEMENTOS
-const msg = document.getElementById("msg");
-const btnEnviar = document.querySelector(".primary");
-const btnConfirmar = document.querySelector(".success");
-
-let confirmationResult = null;
-let recaptchaVerifier = null;
-let cooldown = false;
-
-// 🔐 CONFIGURAÇÃO DO reCAPTCHA (1x)
-const initRecaptcha = () => {
-  if (!recaptchaVerifier) {
-    recaptchaVerifier = new RecaptchaVerifier(
-      auth,
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: () => {}
-      }
-    );
-  }
+// CONFIG FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyDImI1Y2f9fCicqXr4MZi4VrtSM2lJNHUM",
+  authDomain: "qcassino-b40ff.firebaseapp.com",
+  projectId: "qcassino-b40ff",
 };
 
-// 📩 ENVIAR CÓDIGO SMS
-window.enviarCodigo = async () => {
-  const telefone = document.getElementById("telefone").value.trim();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  if (cooldown) {
-    msg.innerText = "⏳ Aguarde 60s antes de tentar novamente";
-    return;
-  }
+// 👁 Mostrar senha
+window.toggleSenha = () => {
+  const input = document.getElementById("senha");
+  input.type = input.type === "password" ? "text" : "password";
+};
 
-  if (!telefone.startsWith("+")) {
-    msg.innerText = "❌ Use o formato +55...";
+// 🎰 CADASTRO
+window.cadastrar = async () => {
+  const nome = nome.value;
+  const cpf = cpf.value;
+  const nascimento = nascimento.value;
+  const email = email.value;
+  const senha = senha.value;
+  const maior18 = document.getElementById("maior18").checked;
+  const msg = document.getElementById("msg");
+
+  if (!maior18) {
+    msg.innerText = "⚠️ Você precisa ser maior de 18 anos.";
     return;
   }
 
   try {
-    cooldown = true;
-    btnEnviar.disabled = true;
-    msg.innerText = "📤 Enviando código...";
+    const user = await createUserWithEmailAndPassword(auth, email, senha);
 
-    initRecaptcha();
+    await setDoc(doc(db, "usuarios", user.user.uid), {
+      nome,
+      cpf,
+      nascimento,
+      email,
+      criadoEm: new Date()
+    });
 
-    confirmationResult = await signInWithPhoneNumber(
-      auth,
-      telefone,
-      recaptchaVerifier
-    );
+    window.location.href = "lobby.html";
 
-    msg.innerText = "📩 Código enviado por SMS";
-
-    // ⏱️ COOLDOWN DE 60s
-    setTimeout(() => {
-      cooldown = false;
-      btnEnviar.disabled = false;
-    }, 60000);
-
-  } catch (e) {
-    cooldown = false;
-    btnEnviar.disabled = false;
-
-    if (e.code === "auth/too-many-requests") {
-      msg.innerText = "🚫 Muitas tentativas. Aguarde alguns minutos.";
-    } else {
-      msg.innerText = e.message;
-    }
+  } catch (erro) {
+    msg.innerText = erro.message;
   }
 };
 
-// ✅ CONFIRMAR CÓDIGO SMS
-window.confirmarCodigo = async () => {
-  const codigo = document.getElementById("codigo").value.trim();
-
-  if (!confirmationResult) {
-    msg.innerText = "❌ Envie o código primeiro";
-    return;
-  }
-
-  if (codigo.length < 6) {
-    msg.innerText = "❌ Código inválido";
-    return;
-  }
+// ✅ LOGIN
+window.login = async () => {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+  const msg = document.getElementById("msg");
 
   try {
-    btnConfirmar.disabled = true;
-    msg.innerText = "🔐 Verificando código...";
-
-    const cred = await confirmationResult.confirm(codigo);
-    const uid = cred.user.uid;
-
-    const ref = doc(db, "usuarios", uid);
-    const snap = await getDoc(ref);
-
-    // 💰 CRÉDITO INICIAL (SOMENTE UMA VEZ)
-    if (!snap.exists()) {
-      await setDoc(ref, {
-        telefone: cred.user.phoneNumber,
-        credito: 10,
-        criadoEm: serverTimestamp()
-      });
-    }
-
-    location.replace("lobby.html");
-
-  } catch {
-    msg.innerText = "❌ Código incorreto";
-    btnConfirmar.disabled = false;
+    await signInWithEmailAndPassword(auth, email, senha);
+    window.location.href = "lobby.html";
+  } catch (erro) {
+    msg.innerText = "❌ Email ou senha inválidos";
   }
 };
