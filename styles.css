@@ -1,286 +1,107 @@
-* {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #1a0033, #000);
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #1b0033, #000);
   color: #fff;
 }
 
-.app {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+.home {
+  min-height: 100vh;
 }
 
 /* TOPO */
-.topbar {
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 25px;
 }
 
 .logo {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: bold;
   color: gold;
 }
 
-.saldo {
-  background: #111;
-  padding: 10px 16px;
-  border-radius: 20px;
-  border: 1px solid gold;
-}
-
-/* BANNER */
-.lobby-banner {
-  margin: 30px 0;
-  padding: 40px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #6a00ff, #ff0080);
-  text-align: center;
-  animation: glow 3s infinite alternate;
-}
-
-@keyframes glow {
-  from { box-shadow: 0 0 15px #ff00ff; }
-  to { box-shadow: 0 0 30px #00ffff; }
-}
-
-/* JOGOS */
-.games {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.game-card {
-  background: linear-gradient(180deg, #1b1b1b, #000);
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  border: 1px solid #333;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.game-card:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 0 25px gold;
-}
-
-.game-card .icon {
-  font-size: 50px;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.game-card h3 {
-  margin: 10px 0;
-}
-
-.game-card p {
-  font-size: 14px;
-  color: #ccc;
-}
-
-.game-card button {
-  margin-top: 10px;
-  padding: 10px;
-  width: 100%;
-  border-radius: 20px;
-  border: none;
-  background: gold;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.game-card button:hover {
-  background: #ffcc00;
-}
-/* 🎰 BANNER QCASSINO */
-.banner-casino {
-  width: 100%;
-  max-width: 1100px;
-  margin-top: 30px;
-  padding: 20px;
-  border-radius: 20px;
-
+/* HERO */
+.hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  background: linear-gradient(
-    135deg,
-    #ffcc00,
-    #ff8c00,
-    #ff4d4d
-  );
-
-  box-shadow: 0 0 40px rgba(255,140,0,0.6);
+  padding: 40px 25px;
+  gap: 30px;
 }
 
-/* TEXTO */
-.banner-text {
-  max-width: 60%;
-  color: #000;
+.hero-text h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
 }
 
-.banner-text h1 {
-  font-size: 32px;
-  font-weight: 900;
+.hero-text span {
+  color: gold;
+  text-shadow: 0 0 10px gold;
 }
 
-.banner-text h1 span {
-  color: #000;
-  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+.hero-text p {
+  font-size: 18px;
+  opacity: 0.9;
 }
 
-.banner-text p {
-  margin: 12px 0 18px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* IMAGEM */
-.banner-img img {
-  max-height: 220px;
-  animation: flutuar 3s ease-in-out infinite;
-}
-
-/* ANIMAÇÃO DO PERSONAGEM */
-@keyframes flutuar {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-
-/* 📱 MOBILE */
-@media (max-width: 768px) {
-  .banner-casino {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .banner-text {
-    max-width: 100%;
-  }
-
-  .banner-img img {
-    margin-top: 15px;
-    max-height: 180px;
-  }
-}
-:root {
-  --bg-dark: #0b0b0b;
-  --bg-card: #161616;
-  --yellow: #ffcc00;
-  --orange: #ff8c00;
-  --green: #2ecc71;
-  --red: #ff4d4d;
-  --text: #ffffff;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
-
-body {
-  background: linear-gradient(180deg, #000000, #111111);
-  color: var(--text);
-}
-
-.app {
-  min-height: 100vh;
+.hero-buttons {
+  margin-top: 25px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-/* LOGO */
-.logo {
-  font-size: 32px;
-  font-weight: 900;
-  color: var(--yellow);
-  margin-top: 20px;
-  text-shadow: 0 0 10px rgba(255,204,0,.5);
-}
-
-/* TEXTO */
-.subtitle {
-  color: #ccc;
-  margin: 10px 0 25px;
-  text-align: center;
-}
-
-/* CARD */
-.card {
-  width: 100%;
-  max-width: 360px;
-  background: var(--bg-card);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 0 30px rgba(255,204,0,0.15);
-}
-
-/* INPUT */
-input {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #222;
-  color: #fff;
-  font-size: 15px;
-}
-
-input::placeholder {
-  color: #999;
+/* PERSONAGEM */
+.hero-img img {
+  width: 320px;
+  max-width: 90%;
+  animation: float 3s ease-in-out infinite;
 }
 
 /* BOTÕES */
 .btn {
-  width: 100%;
-  padding: 14px;
-  margin-top: 15px;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-.primary {
-  background: linear-gradient(135deg, var(--yellow), var(--orange));
+.btn.big {
+  font-size: 16px;
+}
+
+.btn.primary {
+  background: linear-gradient(45deg, #ff00cc, #3333ff);
+  color: #fff;
+  box-shadow: 0 0 15px #ff00cc;
+}
+
+.btn.success {
+  background: linear-gradient(45deg, gold, orange);
   color: #000;
-  box-shadow: 0 0 15px rgba(255,204,0,0.5);
+  box-shadow: 0 0 15px gold;
 }
 
-.primary:hover {
-  transform: scale(1.03);
+.btn.outline {
+  border: 2px solid gold;
+  color: gold;
 }
 
-.success {
-  background: linear-gradient(135deg, var(--green), #1abc9c);
-  color: #000;
+/* ANIMAÇÃO */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
-/* MENSAGEM */
-.msg {
-  margin-top: 15px;
-  text-align: center;
-  color: var(--yellow);
+/* MOBILE */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
 }
