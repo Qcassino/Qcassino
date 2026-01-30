@@ -14,6 +14,7 @@
   <header class="topbar">
     <div class="logo">🎩 QCASINO</div>
     <div class="saldo">💰 Saldo: <span id="saldo">10</span> créditos</div>
+    <button onclick="sair()" class="btn danger">🚪 Sair</button>
   </header>
 
   <!-- BANNER -->
@@ -66,6 +67,23 @@
 </button>
 
 <script src="sounds.js"></script>
+<script type="module">
+  import { auth } from "./firebase.js";
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      // não está logado
+      window.location.href = "login.html";
+    }
+  });
+
+  // botão sair
+  window.sair = async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
+  };
+</script>
 
 </body>
 </html>
