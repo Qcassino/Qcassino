@@ -10,7 +10,10 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-window.cadastrar = () => {
+// ===================
+// CADASTRO
+// ===================
+window.cadastrar = async () => {
   const nome = document.getElementById("nome").value.trim();
   const cpf = document.getElementById("cpf").value.trim();
   const nascimento = document.getElementById("nascimento").value;
@@ -28,21 +31,33 @@ window.cadastrar = () => {
     return;
   }
 
-  // Simulação de cadastro (por enquanto)
-  alert("✅ Cadastro realizado com sucesso!");
+  try {
+    // 🔐 Criar usuário no Firebase Auth
+    const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
-  // Limpar formulário
-  document.getElementById("nome").value = "";
-  document.getElementById("cpf").value = "";
-  document.getElementById("nascimento").value = "";
-  document.getElementById("email").value = "";
-  document.getElementById("senha").value = "";
-  document.getElementById("maior18").checked = false;
+    // 💾 Salvar dados no Firestore
+    await setDoc(doc(db, "usuarios", cred.user.uid), {
+      nome,
+      cpf,
+      nascimento,
+      email,
+      criadoEm: serverTimestamp(),
+      credito: 10
+    });
 
-  // Redirecionar para login
-  setTimeout(() => {
+    alert("✅ Cadastro realizado com sucesso!");
     window.location.href = "login.html";
-  }, 1000);
+
+  } catch (err) {
+    if (err.code === "auth/email-already-in-use") {
+      alert("❌ Este email já está cadastrado");
+    } else if (err.code === "auth/weak-password") {
+      alert("❌ A senha precisa ter no mínimo 6 caracteres");
+    } else {
+      alert("❌ Erro ao cadastrar");
+      console.error(err);
+    }
+  }
 };
 
 // ===================
