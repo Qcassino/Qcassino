@@ -11,22 +11,14 @@
 <div class="app">
 
   <div class="logo">🎩 QCASINO</div>
-
-  <p class="subtitle">Entre na sua conta</p>
+  <p class="subtitle">Entrar na conta</p>
 
   <div class="card">
 
-    <input id="telefone" type="tel" placeholder="+55 11 99999-9999">
+    <input id="email" type="email" placeholder="Email">
+    <input id="senha" type="password" placeholder="Senha">
 
-    <button onclick="enviarCodigo()" class="btn primary">
-      📩 Enviar código
-    </button>
-
-    <input id="codigo" type="number" placeholder="Código SMS">
-
-    <div id="recaptcha-container"></div>
-
-    <button onclick="confirmarCodigo()" class="btn success">
+    <button onclick="login()" class="btn primary">
       ✅ Entrar
     </button>
 
@@ -38,7 +30,6 @@
     </p>
 
   </div>
-
 </div>
 
 <script type="module" src="auth.js"></script>
