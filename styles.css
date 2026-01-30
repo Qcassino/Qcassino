@@ -114,3 +114,21 @@ a {
     max-width: 260px;
   }
 }
+/* olho da senha*/
+.senha-box {
+  position: relative;
+}
+
+.senha-box input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.senha-box .toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.7;
+}
