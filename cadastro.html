@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro - QCasino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app">
+
+  <div class="logo">🎩 QCASINO</div>
+  <p class="subtitle">Crie sua conta no cassino</p>
+
+  <div class="card">
+
+    <input id="telefone" type="tel" placeholder="+55 11 99999-9999">
+
+    <button onclick="enviarCodigo()" class="btn primary">
+      📩 Enviar código
+    </button>
+
+    <input id="codigo" type="number" placeholder="Código SMS">
+
+    <div id="recaptcha-container"></div>
+
+    <button onclick="confirmarCodigo()" class="btn success">
+      🎰 Criar conta
+    </button>
+
+    <p class="msg" id="msg"></p>
+
+    <p style="margin-top:10px; text-align:center;">
+      Já tem conta?
+      <a href="login.html">Fazer login</a>
+    </p>
+
+  </div>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+</body>
+</html>
