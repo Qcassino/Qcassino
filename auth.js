@@ -1,81 +1,52 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { 
-  getFirestore, 
-  doc, 
-  setDoc 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth, db } from "./firebase.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// CONFIG FIREBASE
-const firebaseConfig = {
-  apiKey: "AIzaSyDImI1Y2f9fCicqXr4MZi4VrtSM2lJNHUM",
-  authDomain: "qcassino-b40ff.firebaseapp.com",
-  projectId: "qcassino-b40ff",
-};
+import {
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// 👁 Mostrar senha
-window.toggleSenha = () => {
-  const input = document.getElementById("senha");
-  input.type = input.type === "password" ? "text" : "password";
-};
-
-// 🎰 CADASTRO
+// ===================
+// CADASTRAR
+// ===================
 window.cadastrar = async () => {
-  const nomeInput = document.getElementById("nome");
-  const cpfInput = document.getElementById("cpf");
-  const nascimentoInput = document.getElementById("nascimento");
-  const emailInput = document.getElementById("email");
-  const senhaInput = document.getElementById("senha");
+  const nome = document.getElementById("nome").value.trim();
+  const cpf = document.getElementById("cpf").value.trim();
+  const nascimento = document.getElementById("nascimento").value;
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value;
   const maior18 = document.getElementById("maior18").checked;
   const msg = document.getElementById("msg");
 
-  const nome = nomeInput.value;
-  const cpf = cpfInput.value;
-  const nascimento = nascimentoInput.value;
-  const email = emailInput.value;
-  const senha = senhaInput.value;
+  if (!nome || !cpf || !nascimento || !email || !senha) {
+    msg.innerText = "❌ Preencha todos os campos";
+    return;
+  }
 
   if (!maior18) {
-    msg.innerText = "⚠️ Você precisa ser maior de 18 anos.";
+    msg.innerText = "❌ Você precisa confirmar +18";
     return;
   }
 
   try {
-    const user = await createUserWithEmailAndPassword(auth, email, senha);
+    const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
-    await setDoc(doc(db, "usuarios", user.user.uid), {
+    await setDoc(doc(db, "usuarios", cred.user.uid), {
       nome,
       cpf,
       nascimento,
       email,
-      criadoEm: new Date()
+      credito: 10,
+      criadoEm: serverTimestamp()
     });
 
     window.location.href = "lobby.html";
 
-  } catch (erro) {
-    msg.innerText = erro.message;
-  }
-};
-
-// ✅ LOGIN
-window.login = async () => {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-  const msg = document.getElementById("msg");
-
-  try {
-    await signInWithEmailAndPassword(auth, email, senha);
-    window.location.href = "lobby.html";
-  } catch (erro) {
-    msg.innerText = "❌ Email ou senha inválidos";
+  } catch (e) {
+    msg.innerText = "❌ " + e.message;
   }
 };
