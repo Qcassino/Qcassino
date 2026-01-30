@@ -10,46 +10,41 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ===================
-// CADASTRAR
-// ===================
-window.cadastrar = async () => {
+window.cadastrar = () => {
   const nome = document.getElementById("nome").value.trim();
   const cpf = document.getElementById("cpf").value.trim();
   const nascimento = document.getElementById("nascimento").value;
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value;
   const maior18 = document.getElementById("maior18").checked;
-  const msg = document.getElementById("msg");
 
   if (!nome || !cpf || !nascimento || !email || !senha) {
-    msg.innerText = "❌ Preencha todos os campos";
+    alert("⚠️ Preencha todos os campos");
     return;
   }
 
   if (!maior18) {
-    msg.innerText = "❌ Você precisa confirmar +18";
+    alert("🚫 Você precisa ser maior de 18 anos");
     return;
   }
 
-  try {
-    const cred = await createUserWithEmailAndPassword(auth, email, senha);
+  // Simulação de cadastro (por enquanto)
+  alert("✅ Cadastro realizado com sucesso!");
 
-    await setDoc(doc(db, "usuarios", cred.user.uid), {
-      nome,
-      cpf,
-      nascimento,
-      email,
-      credito: 10,
-      criadoEm: serverTimestamp()
-    });
+  // Limpar formulário
+  document.getElementById("nome").value = "";
+  document.getElementById("cpf").value = "";
+  document.getElementById("nascimento").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("senha").value = "";
+  document.getElementById("maior18").checked = false;
 
-    window.location.href = "lobby.html";
-
-  } catch (e) {
-    msg.innerText = "❌ " + e.message;
-  }
+  // Redirecionar para login
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 1000);
 };
+
 // ===================
 // LOGIN
 // ===================
