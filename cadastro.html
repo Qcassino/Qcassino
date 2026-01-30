@@ -4,56 +4,35 @@
   <meta charset="UTF-8">
   <title>Cadastro - QCasino</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <div class="app">
-
-  <div class="logo">🎩 QCASINO</div>
-  <p class="subtitle">Crie sua conta</p>
-
   <div class="card">
 
-    <label>Nome completo</label>
-    <input id="nome" type="text" placeholder="Seu nome completo">
+    <h2>📝 Criar conta</h2>
 
-    <label>CPF</label>
-    <input id="cpf" type="text" placeholder="000.000.000-00">
-
-    <label>Data de nascimento</label>
-    <input id="nascimento" type="date">
-
-    <label>Email</label>
-    <input id="email" type="email" placeholder="seuemail@gmail.com">
-
-    <label>Senha</label>
-    <div class="senha-box">
-      <input id="senha" type="password" placeholder="Crie uma senha">
-      <span onclick="toggleSenha()">👁</span>
-    </div>
+    <input type="text" placeholder="Nome completo">
+    <input type="text" placeholder="CPF">
+    <input type="date">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Senha">
 
     <label class="check">
-      <input type="checkbox" id="maior18">
-      Declaro que sou maior de 18 anos e aceito os
-      <a href="#">Termos</a> e a
-      <a href="#">Política de Privacidade</a>
+      <input type="checkbox">
+      Sou maior de 18 anos e aceito os
+      <a href="#">Termos</a>
     </label>
 
-    <button onclick="cadastrar()" class="btn success">
-      🎰 Criar conta
-    </button>
+    <button class="btn success">Criar conta</button>
 
-    <p class="msg" id="msg"></p>
-
-    <p style="margin-top:10px; text-align:center;">
-      Já tem conta?
-      <a href="login.html">Entrar</a>
+    <p class="link">
+      Já tem conta? <a href="login.html">Entrar</a>
     </p>
 
   </div>
 </div>
 
-<script type="module" src="auth.js"></script>
 </body>
 </html>
