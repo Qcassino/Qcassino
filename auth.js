@@ -29,13 +29,19 @@ window.toggleSenha = () => {
 
 // 🎰 CADASTRO
 window.cadastrar = async () => {
-  const nome = nome.value;
-  const cpf = cpf.value;
-  const nascimento = nascimento.value;
-  const email = email.value;
-  const senha = senha.value;
+  const nomeInput = document.getElementById("nome");
+  const cpfInput = document.getElementById("cpf");
+  const nascimentoInput = document.getElementById("nascimento");
+  const emailInput = document.getElementById("email");
+  const senhaInput = document.getElementById("senha");
   const maior18 = document.getElementById("maior18").checked;
   const msg = document.getElementById("msg");
+
+  const nome = nomeInput.value;
+  const cpf = cpfInput.value;
+  const nascimento = nascimentoInput.value;
+  const email = emailInput.value;
+  const senha = senhaInput.value;
 
   if (!maior18) {
     msg.innerText = "⚠️ Você precisa ser maior de 18 anos.";
