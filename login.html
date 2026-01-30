@@ -4,34 +4,26 @@
   <meta charset="UTF-8">
   <title>Login - QCasino</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <div class="app">
-
-  <div class="logo">🎩 QCASINO</div>
-  <p class="subtitle">Entrar na conta</p>
-
   <div class="card">
 
-    <input id="email" type="email" placeholder="Email">
-    <input id="senha" type="password" placeholder="Senha">
+    <h2>🎩 Entrar no QCasino</h2>
 
-    <button onclick="login()" class="btn primary">
-      ✅ Entrar
-    </button>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Senha">
 
-    <p class="msg" id="msg"></p>
+    <button class="btn primary">Entrar</button>
 
-    <p style="margin-top:10px;">
-      Não tem conta?
-      <a href="cadastro.html">Criar agora</a>
+    <p class="link">
+      Não tem conta? <a href="cadastro.html">Criar agora</a>
     </p>
 
   </div>
 </div>
 
-<script type="module" src="auth.js"></script>
 </body>
 </html>
