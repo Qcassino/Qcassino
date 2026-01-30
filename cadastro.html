@@ -11,21 +11,36 @@
 <div class="app">
 
   <div class="logo">🎩 QCASINO</div>
-  <p class="subtitle">Crie sua conta no cassino</p>
+  <p class="subtitle">Crie sua conta</p>
 
   <div class="card">
 
-    <input id="telefone" type="tel" placeholder="+55 11 99999-9999">
+    <label>Nome completo</label>
+    <input id="nome" type="text" placeholder="Seu nome completo">
 
-    <button onclick="enviarCodigo()" class="btn primary">
-      📩 Enviar código
-    </button>
+    <label>CPF</label>
+    <input id="cpf" type="text" placeholder="000.000.000-00">
 
-    <input id="codigo" type="number" placeholder="Código SMS">
+    <label>Data de nascimento</label>
+    <input id="nascimento" type="date">
 
-    <div id="recaptcha-container"></div>
+    <label>Email</label>
+    <input id="email" type="email" placeholder="seuemail@gmail.com">
 
-    <button onclick="confirmarCodigo()" class="btn success">
+    <label>Senha</label>
+    <div class="senha-box">
+      <input id="senha" type="password" placeholder="Crie uma senha">
+      <span onclick="toggleSenha()">👁</span>
+    </div>
+
+    <label class="check">
+      <input type="checkbox" id="maior18">
+      Declaro que sou maior de 18 anos e aceito os
+      <a href="#">Termos</a> e a
+      <a href="#">Política de Privacidade</a>
+    </label>
+
+    <button onclick="cadastrar()" class="btn success">
       🎰 Criar conta
     </button>
 
@@ -33,11 +48,10 @@
 
     <p style="margin-top:10px; text-align:center;">
       Já tem conta?
-      <a href="login.html">Fazer login</a>
+      <a href="login.html">Entrar</a>
     </p>
 
   </div>
-
 </div>
 
 <script type="module" src="auth.js"></script>
