@@ -5,20 +5,19 @@ import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase
 const saldoEl = document.getElementById("saldo");
 const sairBtn = document.getElementById("sair");
 
-onAuthStateChanged(auth, user => {
-  if (!user || !user.phoneNumber) {
-    location.replace("index.html");
-  }
-});
-
-  const snap = await getDoc(doc(db, "usuarios", user.uid));
-
-  if (!snap.exists()) {
-    saldoEl.innerText = "0";
-    return;
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return; // ✅ AGORA PODE
   }
 
-  saldoEl.innerText = snap.data().credito;
+  const ref = doc(db, "usuarios", user.uid);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    document.getElementById("nomeUsuario").innerText = snap.data().nome;
+    document.getElementById("saldo").innerText = snap.data().saldo;
+  }
 });
 
 sairBtn.onclick = async () => {
@@ -29,6 +28,7 @@ history.pushState(null, "", location.href);
 window.onpopstate = () => {
   history.pushState(null, "", location.href);
 };
+
 
 
 
