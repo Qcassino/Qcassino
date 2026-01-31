@@ -8,7 +8,7 @@ body {
   background-image: url("chat.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  background-size: 100%;
+   background-position: center center;
   color: #000000;
 }
 
