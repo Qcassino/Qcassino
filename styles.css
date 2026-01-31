@@ -127,6 +127,11 @@ input {
     font-size: 2rem;
   }
 /*mobile*/
-.perso{
-   background-size: 100px auto;
+.perso {
+  width: 160px;          /* tamanho controlado */
+  margin-bottom: 20px;  /* espaço até os inputs */
+  opacity: 0.95;
+}
+.card input {
+  width: 100%;
 }
