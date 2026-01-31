@@ -52,3 +52,15 @@ window.cadastrar = async () => {
     alert("❌ Erro ao cadastrar: " + err.message);
   }
 };
+window.login = async () => {
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value;
+  const msg = document.getElementById("msg");
+
+  try {
+    await signInWithEmailAndPassword(auth, email, senha);
+    window.location.href = "lobby.html";
+  } catch {
+    msg.innerText = "❌ Email ou senha inválidos";
+  }
+};
