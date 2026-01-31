@@ -28,6 +28,21 @@ history.pushState(null, "", location.href);
 window.onpopstate = () => {
   history.pushState(null, "", location.href);
 };
+document.addEventListener("DOMContentLoaded", () => {
+
+  const soundToggle = document.getElementById("soundToggle");
+
+  if (!soundToggle) {
+    console.warn("Botão soundToggle não encontrado");
+    return;
+  }
+
+  soundToggle.onclick = () => {
+    console.log("Som clicado");
+  };
+
+});
+
 
 
 
