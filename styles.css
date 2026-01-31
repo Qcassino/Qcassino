@@ -41,7 +41,7 @@ a {
   inset: 0;
   background: url("ChatGPT.png");
   background-repeat: no-repeat;
-  background-size: 200px;
+  background-size: 300px;
   opacity: 0.10;
   pointer-events: none;
 }
