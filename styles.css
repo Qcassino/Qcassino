@@ -128,5 +128,5 @@ input {
   }
 /*mobile*/
 .perso{
-   background-size: 200px;
+   background-size: 100px auto;
 }
