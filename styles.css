@@ -1,3 +1,113 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  color: #fff;
+}
+
+/* HOME */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-card {
+  background: rgba(0,0,0,0.7);
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(255,215,0,0.2);
+}
+
+/* LOGIN / CADASTRO */
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: rgba(0,0,0,0.7);
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255,215,0,0.2);
+}
+
+/* MASCOTE */
+.mascote {
+  width: 200px;
+  margin-bottom: 20px;
+  animation: flutuar 3s ease-in-out infinite;
+}
+
+.mascote.pequeno {
+  width: 140px;
+}
+
+@keyframes flutuar {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #111;
+  color: #fff;
+}
+
+/* BOTÕES */
+.botoes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.primary {
+  background: linear-gradient(45deg, #ffb300, #ff6f00);
+}
+
+.success {
+  background: linear-gradient(45deg, #00c853, #009624);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+.msg {
+  margin-top: 10px;
+  color: #ff5252;
+  font-size: 14px;
+  text-align: center;
+}
 /* ==============================
    MOBILE AJUSTES FINOS
    ============================== */
