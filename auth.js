@@ -1,22 +1,14 @@
 import { auth, db } from "./firebase.js";
-
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
 import {
   doc,
   setDoc,
-  getDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* ======================
-   CADASTRO
-====================== */
 window.cadastrar = async () => {
   const nome = document.getElementById("nome").value.trim();
   const cpf = document.getElementById("cpf").value.trim();
@@ -36,47 +28,27 @@ window.cadastrar = async () => {
   }
 
   try {
-    // 1️⃣ cria usuário no AUTH
+    // cria conta
     const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
-    // 2️⃣ salva dados no FIRESTORE
+    // salva dados no Firestore
     await setDoc(doc(db, "usuarios", cred.user.uid), {
       nome,
       cpf,
       nascimento,
       email,
-      saldo: 10, // saldo inicial
+      saldo: 10,
       criadoEm: serverTimestamp()
     });
 
-    alert("✅ Cadastro realizado com sucesso!");
+    // 🔴 DESLOGA AUTOMATICAMENTE
+    await signOut(auth);
+
+    alert("✅ Cadastro realizado com sucesso! Faça login.");
+
     window.location.href = "login.html";
 
-  } catch (error) {
-    alert("❌ Erro no cadastro: " + error.message);
+  } catch (err) {
+    alert("❌ Erro ao cadastrar: " + err.message);
   }
-};
-
-/* ======================
-   LOGIN
-====================== */
-window.login = async () => {
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-  const msg = document.getElementById("msg");
-
-  try {
-    await signInWithEmailAndPassword(auth, email, senha);
-    window.location.href = "lobby.html";
-  } catch (error) {
-    msg.innerText = "❌ Email ou senha inválidos";
-  }
-};
-
-/* ======================
-   LOGOUT
-====================== */
-window.sair = async () => {
-  await signOut(auth);
-  window.location.href = "login.html";
 };
