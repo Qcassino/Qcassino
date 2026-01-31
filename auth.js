@@ -1,18 +1,22 @@
 import { auth, db } from "./firebase.js";
+
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
   doc,
   setDoc,
+  getDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ===================
-// CADASTRO
-// ===================
+/* ======================
+   CADASTRO
+====================== */
 window.cadastrar = async () => {
   const nome = document.getElementById("nome").value.trim();
   const cpf = document.getElementById("cpf").value.trim();
@@ -32,37 +36,30 @@ window.cadastrar = async () => {
   }
 
   try {
-    // 🔐 Criar usuário no Firebase Auth
+    // 1️⃣ cria usuário no AUTH
     const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
-    // 💾 Salvar dados no Firestore
+    // 2️⃣ salva dados no FIRESTORE
     await setDoc(doc(db, "usuarios", cred.user.uid), {
       nome,
       cpf,
       nascimento,
       email,
-      criadoEm: serverTimestamp(),
-      credito: 10
+      saldo: 10, // saldo inicial
+      criadoEm: serverTimestamp()
     });
 
     alert("✅ Cadastro realizado com sucesso!");
     window.location.href = "login.html";
 
-  } catch (err) {
-    if (err.code === "auth/email-already-in-use") {
-      alert("❌ Este email já está cadastrado");
-    } else if (err.code === "auth/weak-password") {
-      alert("❌ A senha precisa ter no mínimo 6 caracteres");
-    } else {
-      alert("❌ Erro ao cadastrar");
-      console.error(err);
-    }
+  } catch (error) {
+    alert("❌ Erro no cadastro: " + error.message);
   }
 };
 
-// ===================
-// LOGIN
-// ===================
+/* ======================
+   LOGIN
+====================== */
 window.login = async () => {
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value;
@@ -71,7 +68,15 @@ window.login = async () => {
   try {
     await signInWithEmailAndPassword(auth, email, senha);
     window.location.href = "lobby.html";
-  } catch {
+  } catch (error) {
     msg.innerText = "❌ Email ou senha inválidos";
   }
+};
+
+/* ======================
+   LOGOUT
+====================== */
+window.sair = async () => {
+  await signOut(auth);
+  window.location.href = "login.html";
 };
