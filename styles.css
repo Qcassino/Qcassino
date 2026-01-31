@@ -102,3 +102,9 @@ input {
 .btn:hover {
   transform: scale(1.05);
 }
+.msg {
+  margin-top: 10px;
+  color: #ff5252;
+  font-size: 14px;
+  text-align: center;
+}
