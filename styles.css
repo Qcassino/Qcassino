@@ -1,0 +1,122 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #2b0040, #050008);
+  color: #fff;
+}
+
+a {
+  color: gold;
+  text-decoration: none;
+}
+
+/*login/cadastro */
+
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  background: rgba(0,0,0,0.75);
+  padding: 30px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+}
+
+/* Mascote QCasino no fundo */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("ChatGPT.png") no-repeat center bottom;
+  background-size: 220px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.card * {
+  position: relative;
+  z-index: 2;
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+.senha-box {
+  position: relative;
+}
+
+.senha-box input {
+  padding-right: 40px;
+}
+
+.senha-box .toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary {
+  background: gold;
+  color: #000;
+}
+
+.success {
+  background: #00c853;
+  color: #fff;
+}
+
+.link {
+  text-align: center;
+  margin-top: 15px;
+}
+/*login/cadastro */
+/*mobile*/
+@media (max-width: 768px) {
+  .card {
+    margin: 15px;
+  }
+
+  .card::before {
+    background-size: 160px;
+    opacity: 0.05;
+  }
+
+  .lobby-banner h1 {
+    font-size: 2rem;
+  }
+}
+/*mobile*/
