@@ -39,7 +39,7 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("ChatGPT.png");
+  background-image: url("ChatGPT.png");
   background-position: center bottom;
   background-size: 220px;
   opacity: 0.10;
