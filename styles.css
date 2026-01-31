@@ -39,13 +39,17 @@ a {
   content: "";
   position: absolute;
   inset: 0;
+
   background-image: url("ChatGPT.png");
-  background-position: center bottom;
-  background-size: 220px;
-  opacity: 0.10;
+  background-repeat: no-repeat !important; /* trava repetição */
+  background-position: center center;
+  background-size: 240px auto; /* largura fixa, altura proporcional */
+
+  opacity: 0.12;
   pointer-events: none;
   z-index: 1;
 }
+
 
 
 
