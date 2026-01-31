@@ -14,16 +14,12 @@ window.login = async () => {
   const senha = document.getElementById("senha").value;
   const msg = document.getElementById("msg");
 
-  if (!email || !senha) {
-    msg.innerText = "⚠️ Preencha email e senha";
-    return;
-  }
-
   try {
     await signInWithEmailAndPassword(auth, email, senha);
     window.location.href = "lobby.html";
   } catch (error) {
-    console.error(error);
-    msg.innerText = "❌ Email ou senha inválidos";
+    console.error("ERRO FIREBASE:", error.code);
+    msg.innerText = error.code;
   }
 };
+
