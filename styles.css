@@ -44,6 +44,7 @@ a {
   background-size: 220px;
   opacity: 0.10;
   pointer-events: none;
+  z-index: 1;
 }
 
 
