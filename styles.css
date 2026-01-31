@@ -5,8 +5,9 @@
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #1a1a1a, #000);
-  color: #fff;
+  background-image: url("chat.png");
+  background-size: 100%;
+  color: #000000;
 }
 
 /* HOME */
@@ -15,14 +16,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .hero-card {
-  background: rgba(0,0,0,0.7);
+  width: 3000px;
+  background: rgba(255, 255, 255, 0.418);
   padding: 40px;
   border-radius: 16px;
   text-align: center;
-  width: 90%;
   max-width: 400px;
   box-shadow: 0 0 30px rgba(255,215,0,0.2);
 }
@@ -36,7 +38,7 @@ body {
 }
 
 .card {
-  background: rgba(0,0,0,0.7);
+  background: rgba(255, 255, 255, 0.418);
   padding: 30px;
   border-radius: 16px;
   width: 90%;
@@ -86,7 +88,7 @@ input {
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: #000000;
   text-decoration: none;
   font-weight: bold;
 }
@@ -104,94 +106,83 @@ input {
 }
 .msg {
   margin-top: 10px;
-  color: #ff5252;
+  color: #7bfd01;
   font-size: 14px;
   text-align: center;
 }
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.app {
-  width: 100%;
-}
-
-/* Mobile real (Chrome Android) */
-@media (max-width: 600px) {
-
-  body {
-    font-size: 16px;
-  }
-
-  .hero,
-  .app {
-    min-height: 100svh;
-    padding: 20px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-card,
-  .card {
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-
-  input {
-    font-size: 16px;
-    padding: 14px;
-  }
-
-  .btn {
-    font-size: 16px;
-    padding: 16px;
-  }
-
-  .mascote {
-    width: 180px;
-  }
-
-}
-
-/* ==============================
-   MOBILE AJUSTES FINOS
-   ============================== */
-
+/* =========================
+   RESPONSIVO GERAL (MOBILE)
+========================= */
 @media (max-width: 480px) {
 
   body {
-    font-size: 16px;
+    font-size: 15px;
   }
 
+  /* Container principal */
   .app {
-    min-height: 100dvh;
-    padding: 20px;
-    align-items: center;
+    padding: 16px;
+    align-items: flex-start;
   }
 
+  /* Card login / cadastro */
   .card {
     width: 100%;
-    max-width: 420px; /* 👈 força tamanho bom */
-    padding: 24px;
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 14px;
   }
 
+  /* Inputs */
   input {
-    font-size: 16px; /* 👈 evita zoom estranho */
+    font-size: 15px;
     padding: 14px;
   }
 
+  /* Botões */
   .btn {
+    padding: 15px;
     font-size: 16px;
-    padding: 16px;
   }
 
-  .mascote {
-    width: 180px;
+  /* Mascote do fundo */
+  .card::before {
+    background-size: 140px;
+    background-position: center bottom;
+    opacity: 0.06;
   }
 
+  /* Texto central */
   h1, h2 {
+    font-size: 1.4rem;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .hero {
+    padding: 40px 16px;
+    text-align: center;
+  }
+
+  .hero img {
+    width: 160px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
     font-size: 1.6rem;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 }
