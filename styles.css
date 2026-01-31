@@ -40,6 +40,7 @@ a {
   position: absolute;
   inset: 0;
   background: url("ChatGPT.png");
+  background-repeat: no-repeat;
   background-size: 200px;
   opacity: 0.10;
   pointer-events: none;
