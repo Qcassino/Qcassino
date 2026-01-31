@@ -39,13 +39,12 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(to top, rgba(0,0,0,0.9), transparent 60%),
-    url("ChatGPT.png") no-repeat center bottom;
-  background-size: 220px;
-  opacity: 0.12;
+  background: url("ChatGPT.png") no-repeat center bottom;
+  background-size: 200px;
+  opacity: 0.10;
   pointer-events: none;
 }
+
 
 
 .card * {
