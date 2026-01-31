@@ -14,38 +14,43 @@
     <h2>📝 Criar conta</h2>
 
     <input id="nome" placeholder="Nome completo">
+
     <input
       id="cpf"
       type="text"
-      placeholder="000.000.000-00"
-      maxlength="14"
+      placeholder="CPF (somente números)"
+      maxlength="11"
       inputmode="numeric"
-      oninput="this.value = this.value.replace(/[^0-9.-]/g, '')"
+      oninput="this.value = this.value.replace(/\D/g, '')"
     />
+
     <input id="nascimento" type="date">
+
     <input
       id="email"
       type="email"
       placeholder="seuemail@gmail.com"
       required
     />
-   <div class="senha-box">
-  <input
-    id="senha"
-    type="password"
-    placeholder="Crie uma senha"
-    required
-  />
-  <span class="toggle" onclick="toggleSenha()">👁</span>
-</div>
-    <input type="checkbox" id="maior18">
-      Sou maior de 18 anos e aceito os
-      <a href="#">Termos</a>
+
+    <div class="senha-box">
+      <input
+        id="senha"
+        type="password"
+        placeholder="Crie uma senha"
+        required
+      />
+      <span class="toggle" onclick="toggleSenha()">👁</span>
+    </div>
+
+    <label class="check">
+      <input type="checkbox" id="maior18">
+      Sou maior de 18 anos e aceito os <a href="#">Termos</a>
     </label>
 
-   <button class="btn success" onclick="cadastrar()">
+    <button class="btn success" onclick="cadastrar()">
       Criar conta
-  </button>
+    </button>
 
     <p class="link">
       Já tem conta? <a href="login.html">Entrar</a>
@@ -53,6 +58,7 @@
 
   </div>
 </div>
+
 <script type="module" src="auth.js"></script>
 </body>
 </html>
