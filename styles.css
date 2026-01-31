@@ -114,60 +114,37 @@ input {
 
 @media (max-width: 480px) {
 
-  /* HERO: centraliza tudo */
-  .hero {
-    flex-direction: column;
-    padding: 30px 12px;
-  }
-
-  .hero-card {
-    padding: 30px 12px;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  /* Mascote menor e responsivo */
-  .hero img,
-  .mascote {
-    width: 140px;   /* menor no mobile */
-    margin: 0 auto 12px;
-  }
-
-  /* Headings menores */
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero p {
-    font-size: 0.9rem;
-  }
-
-  /* quebre os botões (coluna) */
-  .hero-buttons,
-  .botoes {
-    flex-direction: column !important;
-    gap: 10px;
-  }
-
-  .hero-buttons a,
-  .btn {
-    width: 100%;
+  body {
     font-size: 16px;
   }
 
-  /* espaçamento do formulário */
+  .app {
+    min-height: 100dvh;
+    padding: 20px;
+    align-items: center;
+  }
+
   .card {
-    padding: 20px 12px;
+    width: 100%;
+    max-width: 420px; /* 👈 força tamanho bom */
+    padding: 24px;
   }
 
-  /* inputs maiores e fáceis de tocar */
   input {
+    font-size: 16px; /* 👈 evita zoom estranho */
     padding: 14px;
-    font-size: 15px;
   }
 
-  /* evita overflow vertical */
-  body, .app {
-    overflow-x: hidden;
+  .btn {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  .mascote {
+    width: 180px;
+  }
+
+  h1, h2 {
+    font-size: 1.6rem;
   }
 }
