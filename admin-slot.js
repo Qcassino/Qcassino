@@ -4,29 +4,51 @@ import { doc, getDoc, updateDoc } from
 
 const ref = doc(db, "configuracoes", "slot");
 
+let isAdmin = false
 
-window.salvarConfigSlot = async function () {
+// 🔐 Verifica admin
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  const ref = doc(db, "usuarios", user.uid);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists() || snap.data().role !== "admin") {
+    alert("Acesso negado");
+    window.location.href = "lobby.html";
+    return;
+  }
+
+  isAdmin = true;
+});
+
+// 💾 SALVAR CONFIG SLOT
+window.salvarConfigSlot = async () => {
+  if (!isAdmin) return;
 
   const mult2 = Number(document.getElementById("mult2").value);
   const mult3 = Number(document.getElementById("mult3").value);
   const chance = Number(document.getElementById("chance").value);
   const ativo = document.getElementById("slotAtivo").checked;
 
-  if (chance < 0 || chance > 1) {
-    alert("❌ A chance deve ser entre 0 e 1");
+  if (mult2 <= 0 || mult3 <= 0) {
+    alert("Multiplicadores inválidos");
     return;
   }
 
-  const ref = doc(db, "configuracoes", "slot");
+  const configRef = doc(db, "configuracoes", "slot");
 
-  await updateDoc(ref, {
+  await updateDoc(configRef, {
     mult_2: mult2,
     mult_3: mult3,
     chance: chance,
     ativo: ativo
   });
 
-  alert("✅ Configuração do slot salva com sucesso!");
+  alert("✅ Configuração do slot salva!");
 };
 
 
@@ -54,6 +76,7 @@ window.salvarConfigSlot = async () => {
 
   alert("Configuração do Slot salva!");
 };
+
 
 
 
