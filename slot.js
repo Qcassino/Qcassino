@@ -1,14 +1,37 @@
 import { auth, db } from "./firebase.js";
 import {
   doc,
-  getDoc
+  getDoc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-auth.onAuthStateChanged(async (user) => {
+// 🎰 IMAGENS
+const imagens = [
+  "Joker.png",
+  "Joker1.png",
+  "Joker2.png"
+];
+
+// ESTADO
+let saldo = 0;
+let aposta = 1;
+let userRef = null;
+
+// ELEMENTOS
+const saldoEl = document.getElementById("saldo");
+const msg = document.getElementById("msg");
+const apostaEl = document.getElementById("apostaValor");
+const btnSpin = document.getElementById("btnSpin");
+
+// trava o botão até carregar
+btnSpin.disabled = true;
+
+// 🔐 AUTH + SALDO
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
@@ -21,38 +44,24 @@ auth.onAuthStateChanged(async (user) => {
     saldo = snap.data().saldo;
     saldoEl.innerText = saldo;
 
-    // ✅ LIBERA O JOGO
-    document.getElementById("btnSpin").disabled = false;
+    btnSpin.disabled = false; // libera jogo
   }
 });
 
+// 🎲 JOGAR
+window.jogar = async () => {
+  if (!userRef) {
+    msg.innerText = "⏳ Carregando usuário...";
+    return;
+  }
 
-const imagens = [
-  "Joker.png",
-  "Joker1.png",
-  "Joker2.png"
-  
-];
-
-let saldo = 10;
-let aposta = 1;
-
-const saldoEl = document.getElementById("saldo");
-const msg = document.getElementById("msg");
-
-await setPersistence(auth, browserLocalPersistence);
-
-saldoEl.innerText = saldo;
-
-// 🔄 FUNÇÃO GIRAR
-window.jogar = () => {
   if (saldo < aposta) {
     msg.innerText = "❌ Saldo insuficiente";
     return;
   }
 
+  // desconta aposta
   saldo -= aposta;
-  saldoEl.innerText = saldo;
 
   const r1 = sorteia();
   const r2 = sorteia();
@@ -62,15 +71,20 @@ window.jogar = () => {
   document.querySelector("#r2 img").src = r2;
   document.querySelector("#r3 img").src = r3;
 
-  // 🏆 CONDIÇÃO DE GANHO
+  let ganho = 0;
+
   if (r1 === r2 && r2 === r3) {
-    const premio = aposta * 5;
-    saldo += premio;
-    saldoEl.innerText = saldo;
-    msg.innerText = `🎉 GANHOU ${premio} créditos!`;
+    ganho = aposta * 5;
+    msg.innerText = `🎉 GANHOU ${ganho} créditos!`;
   } else {
     msg.innerText = "😕 Não foi dessa vez";
   }
+
+  saldo += ganho;
+  saldoEl.innerText = saldo;
+
+  // 🔥 SALVA NO FIREBASE
+  await updateDoc(userRef, { saldo });
 };
 
 // 🎲 SORTEIO
@@ -82,12 +96,12 @@ function sorteia() {
 // ➕➖ APOSTA
 window.aumentarAposta = () => {
   if (aposta < saldo) aposta++;
-  document.getElementById("apostaValor").innerText = aposta;
+  apostaEl.innerText = aposta;
 };
 
 window.diminuirAposta = () => {
   if (aposta > 1) aposta--;
-  document.getElementById("apostaValor").innerText = aposta;
+  apostaEl.innerText = aposta;
 };
 
 // ⬅ VOLTAR
