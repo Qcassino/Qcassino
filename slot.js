@@ -8,22 +8,24 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-onAuthStateChanged(auth, async (user) => {
+auth.onAuthStateChanged(async (user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
 
-  const userRef = doc(db, "usuarios", user.uid);
+  userRef = doc(db, "usuarios", user.uid);
   const snap = await getDoc(userRef);
 
   if (snap.exists()) {
-    document.getElementById("nomeUsuario").innerText = snap.data().nome;
-    document.getElementById("saldo").innerText = snap.data().saldo;
-  } else {
-    alert("Usuário sem dados no Firestore");
+    saldo = snap.data().saldo;
+    saldoEl.innerText = saldo;
+
+    // ✅ LIBERA O JOGO
+    document.getElementById("btnSpin").disabled = false;
   }
 });
+
 
 const imagens = [
   "Joker.png",
