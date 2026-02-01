@@ -12,20 +12,27 @@ document.addEventListener("DOMContentLoaded", () => {
   await setPersistence(auth, browserLocalPersistence);
   
   // 🔐 Proteção de rota
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      location.replace("login.html");
-      return;
-    }
+  auth.onAuthStateChanged(async (user) => {
+  console.log("AUTH USER:", user);
 
-    const ref = doc(db, "usuarios", user.uid);
-    const snap = await getDoc(ref);
+  if (!user) {
+    console.log("Usuário não logado");
+    return;
+  }
 
-    if (snap.exists()) {
-      nomeEl.innerText = snap.data().nome;
-      saldoEl.innerText = snap.data().saldo;
-    }
-  });
+  const ref = doc(db, "usuarios", user.uid);
+  const snap = await getDoc(ref);
+
+  console.log("DOC EXISTS?", snap.exists());
+  console.log("DATA:", snap.data());
+
+  if (snap.exists()) {
+    document.getElementById("nomeUsuario").innerText = snap.data().nome;
+    document.getElementById("saldo").innerText = snap.data().saldo;
+  } else {
+    alert("Documento do usuário NÃO existe no Firestore");
+  }
+});
 
   // 🚪 Logout
   if (sairBtn) {
@@ -49,4 +56,5 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 });
+
 
