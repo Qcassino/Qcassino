@@ -38,7 +38,7 @@ window.cadastrar = async () => {
 
     // 🔥 SALVA DADOS NO FIRESTORE
     await setDoc(doc(db, "usuarios", cred.user.uid), {
-      nome,
+      nome: nome,
       cpf,
       nascimento,
       email,
