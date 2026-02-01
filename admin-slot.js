@@ -1,12 +1,17 @@
-import { db } from "./firebase.js";
-import { doc, getDoc, updateDoc } from
-"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { auth, db } from "./firebase.js";
+import {
+  doc,
+  getDoc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const ref = doc(db, "configuracoes", "slot");
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-let isAdmin = false
+// 🔐 Proteção ADMIN
+let isAdmin = false;
 
-// 🔐 Verifica admin
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -27,7 +32,10 @@ onAuthStateChanged(auth, async (user) => {
 
 // 💾 SALVAR CONFIG SLOT
 window.salvarConfigSlot = async () => {
-  if (!isAdmin) return;
+  if (!isAdmin) {
+    alert("Sem permissão");
+    return;
+  }
 
   const mult2 = Number(document.getElementById("mult2").value);
   const mult3 = Number(document.getElementById("mult3").value);
@@ -50,33 +58,3 @@ window.salvarConfigSlot = async () => {
 
   alert("✅ Configuração do slot salva!");
 };
-
-
-// 🔄 CARREGA CONFIG
-async function carregarConfigSlot() {
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return;
-
-  const data = snap.data();
-  mult2.value = data.mult_2;
-  mult3.value = data.mult_3;
-  chance.value = data.chance;
-  ativo.checked = data.ativo;
-}
-carregarConfigSlot();
-
-// 💾 SALVAR
-window.salvarConfigSlot = async () => {
-  await updateDoc(ref, {
-    mult_2: Number(mult2.value),
-    mult_3: Number(mult3.value),
-    chance: Number(chance.value),
-    ativo: ativo.checked
-  });
-
-  alert("Configuração do Slot salva!");
-};
-
-
-
-
