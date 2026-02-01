@@ -17,6 +17,7 @@ const imagens = [
 ];
 
 // ESTADO
+let configSlot = null;
 let saldo = 0;
 let aposta = 1;
 let userRef = null;
@@ -27,9 +28,19 @@ const msg = document.getElementById("msg");
 const apostaEl = document.getElementById("apostaValor");
 const btnSpin = document.getElementById("btnSpin");
 
+const configRef = doc(db, "configuracoes", "slot");
+const configSnap = await getDoc(configRef);
+configSlot = configSnap.data();
+
 // trava o botão até carregar
 btnSpin.disabled = true;
 
+
+if (!configSlot.ativo) {
+  msg.innerText = "⛔ Slot desativado pelo administrador";
+  btnSpin.disabled = true;
+  return;
+}
 // 🔐 AUTH + SALDO
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -47,6 +58,7 @@ onAuthStateChanged(auth, async (user) => {
     btnSpin.disabled = false; // libera jogo
   }
 });
+
 
 // 🎲 JOGAR
 window.jogar = async () => {
@@ -72,22 +84,20 @@ window.jogar = async () => {
   document.querySelector("#r3 img").src = r3;
 
   let ganho = 0;
+
   
-  if (r1 === r2 && r2 === r3) {
-  ganho = aposta * 4;
-  msg.innerText = `🎉 JACKPOT! Ganhou ${ganho} créditos (4x)!`;
+if (r1 === r2 && r2 === r3) {
+  ganho = aposta * configSlot.mult_3;
+} 
+else if (r1 === r2 || r1 === r3 || r2 === r3) {
+  ganho = aposta * configSlot.mult_2;
+}
 
-
-  } else if (
-  r1 === r2 ||
-  r1 === r3 ||
-  r2 === r3
-) {
-  ganho = aposta * 2;
-  msg.innerText = `✨ Boa! 2 cartas iguais → ${ganho} créditos (2x)`;
-  } else {
-    msg.innerText = "😕 Não foi dessa vez";
-  }
+if (ganho > 0) {
+  msg.innerText = `🎉 GANHOU ${ganho}!`;
+} else {
+  msg.innerText = "😕 Não foi dessa vez";
+}
 
   saldo += ganho;
   saldoEl.innerText = saldo;

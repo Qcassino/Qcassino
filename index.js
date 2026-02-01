@@ -9,10 +9,22 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const msg = document.getElementById("msg");
+const btnAdmin = document.getElementById("btnAdmin");
 
 let confirmationResult = null;
 let recaptchaVerifier = null;
 
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return;
+
+  const ref = doc(db, "usuarios", user.uid);
+  const snap = await getDoc(ref);
+
+  if (snap.exists() && snap.data().role === "admin") {
+    btnAdmin.style.display = "block";
+  }
+});
 // 📩 Enviar código SMS
 window.enviarCodigo = async () => {
   const telefone = document.getElementById("telefone").value;
