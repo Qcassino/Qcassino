@@ -48,7 +48,10 @@ window.salvarConfigSlot = async () => {
   }
 
   const configRef = doc(db, "configuracoes", "slot");
-
+  
+  console.log("USER LOGADO:", auth.currentUser.uid);
+  console.log("Tentando salvar config slot...");
+  
   await updateDoc(configRef, {
     mult_2: mult2,
     mult_3: mult3,
@@ -58,3 +61,4 @@ window.salvarConfigSlot = async () => {
 
   alert("✅ Configuração do slot salva!");
 };
+
