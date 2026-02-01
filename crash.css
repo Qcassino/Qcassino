@@ -1,0 +1,53 @@
+body {
+  background: radial-gradient(circle, #1a1a1a, #000);
+  font-family: Arial, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.crash-card {
+  background: #111;
+  border-radius: 12px;
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 0 20px #ff9800;
+}
+
+#mult {
+  font-size: 48px;
+  margin: 20px 0;
+  color: #00ff99;
+}
+
+.controls button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#btnStart {
+  background: #2196f3;
+  color: white;
+}
+
+#btnCashout {
+  background: #4caf50;
+  color: white;
+}
+
+#btnCashout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#msg {
+  margin-top: 15px;
+  font-size: 14px;
+}
