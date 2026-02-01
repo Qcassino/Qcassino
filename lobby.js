@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const nomeEl = document.getElementById("nomeUsuario");
   const sairBtn = document.getElementById("sair");
   const soundToggle = document.getElementById("soundToggle");
-
-  await setPersistence(auth, browserLocalPersistence);
   
   // 🔐 Proteção de rota
   auth.onAuthStateChanged(async (user) => {
@@ -54,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.onpopstate = () => {
     history.pushState(null, "", location.href);
   };
-
 });
+
 
 
