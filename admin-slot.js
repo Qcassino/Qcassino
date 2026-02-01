@@ -6,20 +6,29 @@ const ref = doc(db, "configuracoes", "slot");
 
 
 window.salvarConfigSlot = async function () {
-  const ativo = document.getElementById("slotAtivo").checked;
+
   const mult2 = Number(document.getElementById("mult2").value);
   const mult3 = Number(document.getElementById("mult3").value);
+  const chance = Number(document.getElementById("chance").value);
+  const ativo = document.getElementById("slotAtivo").checked;
+
+  if (chance < 0 || chance > 1) {
+    alert("❌ A chance deve ser entre 0 e 1");
+    return;
+  }
 
   const ref = doc(db, "configuracoes", "slot");
 
   await updateDoc(ref, {
-    ativo: ativo,
     mult_2: mult2,
-    mult_3: mult3
+    mult_3: mult3,
+    chance: chance,
+    ativo: ativo
   });
 
-  alert("✅ Configuração salva!");
+  alert("✅ Configuração do slot salva com sucesso!");
 };
+
 
 // 🔄 CARREGA CONFIG
 async function carregarConfigSlot() {
@@ -45,5 +54,6 @@ window.salvarConfigSlot = async () => {
 
   alert("Configuração do Slot salva!");
 };
+
 
 
