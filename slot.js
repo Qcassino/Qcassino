@@ -43,7 +43,7 @@ onAuthStateChanged(auth, async (user) => {
 
     if (!configSlot.ativo) {
       msg.innerText = "⛔ Slot desativado pelo administrador";
-      return;
+      btnSpin.disabled = true;
     }
 
     // 👤 USUÁRIO
