@@ -80,11 +80,12 @@ btnCashout.onclick = async () => {
   clearInterval(interval);
   jogando = false;
 
-  const ganho = Math.floor(aposta * mult);
+  const ganho = Number((aposta * mult).toFixed(2));
   saldo += ganho;
+  saldo = Number(saldo.toFixed(2));
 
   await updateDoc(userRef, { saldo });
-  saldoEl.innerText = saldo;
+  saldoEl.innerText = saldo.toFixed(2);
 
   msg.innerText = `💰 Sacou ${ganho}!`;
   reset();
