@@ -4,6 +4,28 @@ import { doc, getDoc, updateDoc } from
 
 const ref = doc(db, "configuracoes", "slot");
 
+
+  window.salvarConfigSlot = async function () {
+  try {
+    const ativo = document.getElementById("slotAtivo").checked;
+    const mult2 = Number(document.getElementById("mult2").value);
+    const mult3 = Number(document.getElementById("mult3").value);
+
+    const ref = doc(db, "configuracoes", "slot");
+
+    await updateDoc(ref, {
+      ativo: ativo,
+      mult_2: mult2,
+      mult_3: mult3
+    });
+
+    alert("✅ Configuração do slot salva com sucesso!");
+  } catch (e) {
+    console.error(e);
+    alert("❌ Erro ao salvar configuração");
+  }
+};
+
 // 🔄 CARREGA CONFIG
 async function carregarConfigSlot() {
   const snap = await getDoc(ref);
@@ -28,3 +50,4 @@ window.salvarConfigSlot = async () => {
 
   alert("Configuração do Slot salva!");
 };
+
