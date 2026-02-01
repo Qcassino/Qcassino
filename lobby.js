@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sairBtn = document.getElementById("sair");
   const soundToggle = document.getElementById("soundToggle");
 
+  await setPersistence(auth, browserLocalPersistence);
+  
   // 🔐 Proteção de rota
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -47,3 +49,4 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 });
+
