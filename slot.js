@@ -72,10 +72,19 @@ window.jogar = async () => {
   document.querySelector("#r3 img").src = r3;
 
   let ganho = 0;
-
+  
   if (r1 === r2 && r2 === r3) {
-    ganho = aposta * 5;
-    msg.innerText = `🎉 GANHOU ${ganho} créditos!`;
+  ganho = aposta * 4;
+  msg.innerText = `🎉 JACKPOT! Ganhou ${ganho} créditos (4x)!`;
+
+
+  } else if (
+  r1 === r2 ||
+  r1 === r3 ||
+  r2 === r3
+) {
+  ganho = aposta * 2;
+  msg.innerText = `✨ Boa! 2 cartas iguais → ${ganho} créditos (2x)`;
   } else {
     msg.innerText = "😕 Não foi dessa vez";
   }
