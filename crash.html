@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Crash - QCassino</title>
+  <link rel="stylesheet" href="crash.css">
+</head>
+<body>
+
+<div class="crash-card">
+  <h1>🚀 CRASH</h1>
+
+  <div class="saldo">Saldo: R$ <span id="saldo">0</span></div>
+
+  <input type="number" id="aposta" value="1" min="1">
+
+  <div id="mult">1.00x</div>
+
+  <div class="controls">
+    <button id="btnStart">▶️ Iniciar</button>
+    <button id="btnCashout" disabled>💰 Sacar</button>
+  </div>
+
+  <p id="msg"></p>
+</div>
+
+<script type="module" src="crash.js"></script>
+</body>
+</html>
