@@ -1,8 +1,10 @@
 import { auth, db } from "./firebase.js";
 import {
   RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithPhoneNumber,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
 
 import {
   doc, getDoc, setDoc, serverTimestamp
