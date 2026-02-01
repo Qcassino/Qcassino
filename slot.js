@@ -11,6 +11,8 @@ let aposta = 1;
 const saldoEl = document.getElementById("saldo");
 const msg = document.getElementById("msg");
 
+await setPersistence(auth, browserLocalPersistence);
+
 saldoEl.innerText = saldo;
 
 // 🔄 FUNÇÃO GIRAR
