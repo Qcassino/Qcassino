@@ -10,6 +10,12 @@ body {
   background: radial-gradient(circle at top, #1b1b1b, #000);
   color: #fff;
   min-height: 100vh;
+  margin: 0;
+  background-image: url("casino.png");
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #000000;
 }
 
 /* APP */
@@ -44,9 +50,9 @@ body {
   object-fit: contain;
 }
 .user-info {
-  text-align: center;
-  font-size: 14px;
+  font-size: 15px;
   color: #eee;
+  border-radius: 8px;
 }
 
 .btn {
@@ -59,8 +65,8 @@ body {
 }
 
 .btn.danger {
-  background: #d63031;
-  color: #fff;
+  background: #e0b15c;
+  color: #111111;
 }
 
 .btn.danger:hover {
@@ -85,12 +91,14 @@ body {
 }
 
 .lobby-banner p {
+  color: white;
   font-size: 16px;
   opacity: 0.9;
 }
 
 /* GAMES */
 .games {
+  color: white;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
@@ -131,7 +139,7 @@ body {
 
 .game-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 0 25px rgba(224, 177, 92, 0.4);
+  box-shadow: 0 0 25px rgb(224, 178, 92);
 }
 .game-card .icon {
     font-size: 42px;

@@ -12,25 +12,28 @@
 
   <!-- TOPO -->
   <header class="topbar">
+
+    <div class="user-info">
+        Seu Nome : <span id="nomeUsuario">---</span><br>
+        R$: <span id="saldo">0</span>
+        
+        <button id="btnAdmin" class="btn danger" style="display:none;">
+        🛠 Painel Admin
+</button>
+</div>
+
     <div class="logo">
-  <img src="ChatGPT.png" alt="QCasino" class="logo-img">
+      <img src="ChatGPT.png" alt="QCasino" class="logo-img">
+      <button id="sair" onclick="sair()" class="btn danger">🚪 Sair</button>
     </div>
     
-    <div class="user-info">
-  Seu Nome👤 <span id="nomeUsuario">---</span><br>
-  💰 R$: <span id="saldo">0</span> Reais
-        <button id="sair" onclick="sair()" class="btn danger">🚪 Sair</button>
-        <button id="btnAdmin" class="btn danger" style="display:none;">
-  🛠 Painel Admin
-</button>
-
-      </div>
+   
   </header>
 
   <!-- BANNER -->
   <section class="lobby-banner">
-    <h1>🎰 Bem-vindo ao QCASSINO</h1>
-    <p>Aposte com inteligência. A sorte gira rápido.</p>
+    <h1>Bem-vindo ao QCASSINO</h1>
+    <p>Aposte com inteligência !!  A sorte gira rápido.</p>
   </section>
 
   <!-- JOGOS -->
