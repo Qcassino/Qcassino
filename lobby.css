@@ -7,10 +7,6 @@
 }
 
 body {
-  background: radial-gradient(circle at top, #1b1b1b, #000);
-  color: #fff;
-  min-height: 100vh;
-  margin: 0;
   background-image: url("casino.png");
   background-size: 150%;
   background-repeat: no-repeat;
