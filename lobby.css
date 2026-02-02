@@ -8,8 +8,9 @@
 
 body {
   background-image: url("casino.png");
-  background-size: 150%;
+  background-size: 200%;
   background-repeat: no-repeat;
+  background-position: center;
   color: #000000;
 }
 
