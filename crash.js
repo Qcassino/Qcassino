@@ -1,108 +1,103 @@
 import { auth, db } from "./firebase.js";
 import {
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-import {
-  doc, getDoc, updateDoc
+  doc, getDoc, setDoc, updateDoc, onSnapshot,
+  increment
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-let saldo = 0;
-let aposta = 1;
-let userRef = null;
+const partidaRef = doc(db, "partidas", "atual");
+let uid = null;
+let sacou = false;
 
-let mult = 1;
-let crashPoint = 0;
-let interval = null;
-let jogando = false;
-
-// ELEMENTOS
-const saldoEl = document.getElementById("saldo");
-const apostaEl = document.getElementById("aposta");
-const multEl = document.getElementById("mult");
-const msg = document.getElementById("msg");
-const btnStart = document.getElementById("btnStart");
-const btnCashout = document.getElementById("btnCashout");
-
-// 🔐 AUTH
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
-
-  userRef = doc(db, "usuarios", user.uid);
-  const snap = await getDoc(userRef);
-
-  saldo = snap.data().saldo;
-  saldoEl.innerText = saldo;
+auth.onAuthStateChanged(user => {
+  if (user) uid = user.uid;
 });
 
-// gera crash
 function gerarCrash() {
-  return (Math.random() * 4 + 1).toFixed(2);
+  return Number((Math.random() * 4 + 1).toFixed(2)); // 1.00x a 5.00x
 }
 
-// ▶️ INICIAR
-btnStart.onclick = async () => {
-  aposta = Number(apostaEl.value);
+window.entrar = async () => {
+  const aposta = Number(document.getElementById("aposta").value);
 
-  if (aposta <= 0 || aposta > saldo) {
-    msg.innerText = "❌ Aposta inválida";
-    return;
+  await setDoc(doc(db, "partidas/atual/jogadores", uid), {
+    aposta,
+    sacou: false,
+    ganho: 0
+  });
+
+  const snap = await getDoc(partidaRef);
+
+  if (!snap.exists()) {
+    await setDoc(partidaRef, {
+      status: "aguardando",
+      jogadores: 1
+    });
+  } else {
+    await updateDoc(partidaRef, {
+      jogadores: increment(1)
+    });
+  }
+};
+
+onSnapshot(partidaRef, async snap => {
+  if (!snap.exists()) return;
+
+  const data = snap.data();
+
+  document.getElementById("status").innerText =
+    `Status: ${data.status}`;
+
+  if (data.status === "aguardando" && data.jogadores >= 3) {
+    await updateDoc(partidaRef, {
+      status: "rodando",
+      crashEm: gerarCrash(),
+      multiplicador: 1
+    });
   }
 
-  // desconta aposta
-  saldo -= aposta;
-  await updateDoc(userRef, { saldo });
-  saldoEl.innerText = saldo;
+  if (data.status === "rodando") {
+    document.getElementById("multi").innerText =
+      data.multiplicador.toFixed(2) + "x";
 
-  mult = 1;
-  crashPoint = gerarCrash();
-  jogando = true;
+    if (data.multiplicador >= data.crashEm) {
+      await updateDoc(partidaRef, { status: "finalizada" });
+    }
+  }
+});
 
-  btnStart.disabled = true;
-  btnCashout.disabled = false;
-  msg.innerText = "🚀 Subindo...";
+setInterval(async () => {
+  const snap = await getDoc(partidaRef);
+  if (!snap.exists()) return;
 
-  interval = setInterval(() => {
-    mult += 0.01;
-    multEl.innerText = mult.toFixed(2) + "x";
+  const d = snap.data();
+  if (d.status === "rodando") {
+    await updateDoc(partidaRef, {
+      multiplicador: Number((d.multiplicador + 0.01).toFixed(2))
+    });
+  }
+}, 100);
 
-    if (mult >= crashPoint) crash();
-  }, 50);
+window.sacar = async () => {
+  if (sacou) return;
+  sacou = true;
+
+  const snap = await getDoc(partidaRef);
+  const multi = snap.data().multiplicador;
+
+  const refJog = doc(db, "partidas/atual/jogadores", uid);
+  const jSnap = await getDoc(refJog);
+
+  const ganho = jSnap.data().aposta * multi;
+
+  await updateDoc(refJog, {
+    sacou: true,
+    ganho
+  });
+
+  await updateDoc(doc(db, "usuarios", uid), {
+    saldo: increment(ganho)
+  });
+
+  document.getElementById("msg").innerText =
+    `💰 Sacou ${ganho.toFixed(2)}`;
 };
-
-// 💰 SACAR
-btnCashout.onclick = async () => {
-  if (!jogando) return;
-
-  clearInterval(interval);
-  jogando = false;
-
-  const ganho = Number((aposta * mult).toFixed(2));
-  saldo += ganho;
-  saldo = Number(saldo.toFixed(2));
-
-  await updateDoc(userRef, { saldo });
-  saldoEl.innerText = saldo.toFixed(2);
-
-  msg.innerText = `💰 Sacou ${ganho}!`;
-  reset();
-};
-
-// 💥 CRASH
-function crash() {
-  clearInterval(interval);
-  jogando = false;
-
-  multEl.innerText = "💥 CRASH";
-  msg.innerText = `❌ Crashou em ${crashPoint}x`;
-  reset();
-}
-
-// 🔁 RESET
-function reset() {
-  btnStart.disabled = false;
-  btnCashout.disabled = true;
-}
