@@ -8,16 +8,15 @@
 
 body {
   min-height: 100vh;
+  background: radial-gradient(circle at top, #1b1b1b, #000);
   background-image: url("casino.png");
-  background-size: 200%;
-  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
-  color: #000000;
+  color: #fff;
 }
 
 /* APP */
 .app {
-  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,134 +25,129 @@ body {
 /* TOPO */
 .topbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
   background: linear-gradient(90deg, #111, #1f1f1f);
-  padding: 15px 20px;
   border-bottom: 2px solid #e0b15c;
 }
 
-.logo {
-  align-items: center;
-  gap: 8px;
-  display: flex;
-  font-size: 100px;
-  font-weight: bold;
-  color: #e0b15c;
-}
-.logo-img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
 .user-info {
-  font-size: 15px;
-  color: #eee;
-  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* BOTÕES */
 .btn {
-  border: none;
-  padding: 10px 15px;
+  padding: 8px 14px;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s;
 }
 
 .btn.danger {
   background: #e0b15c;
-  color: #111111;
-}
-
-.btn.danger:hover {
-  background: #ff4d4d;
+  color: #111;
 }
 
 /* BANNER */
 .lobby-banner {
   text-align: center;
-  padding: 40px 20px;
+  padding: 30px 16px;
   background: linear-gradient(
     135deg,
-    rgba(224, 177, 92, 0.15),
-    rgba(0, 0, 0, 0.8)
+    rgba(224, 177, 92, 0.18),
+    rgba(0, 0, 0, 0.85)
   );
 }
 
 .lobby-banner h1 {
-  font-size: 32px;
+  font-size: 26px;
   color: #e0b15c;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .lobby-banner p {
-  color: white;
-  font-size: 16px;
+  font-size: 14px;
   opacity: 0.9;
 }
 
-/* GAMES */
+/* GRID JOGOS */
 .games {
-  color: white;
+  padding: 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
 }
 
 /* CARD */
 .game-card {
   background: linear-gradient(145deg, #151515, #0a0a0a);
-  border-radius: 16px;
-  padding: 25px 20px;
+  border-radius: 14px;
+  padding: 16px;
   text-align: center;
   border: 1px solid rgba(224, 177, 92, 0.25);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+  transition: 0.25s;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Coringa {
-  width: 120px;
-  height: 120px;
+.game-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 22px rgba(224, 177, 92, 0.8);
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 12px;
+.game-card.disabled {
+  opacity: 0.5;
 }
 
 /* IMAGEM */
-.Coringa img {
-  max-width: 100%;
-  max-height: 100%;
+.game-img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 10px;
+}
+
+.game-img img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.game-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 0 25px rgb(224, 178, 92);
-}
-.game-card .icon {
-    font-size: 42px;
-    margin-bottom: 10px;
+.icon {
+  font-size: 42px;
+  margin-bottom: 10px;
 }
 
+/* TEXTO */
 .game-card h3 {
+  font-size: 15px;
   color: #e0b15c;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .game-card p {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 15px;
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 12px;
 }
 
+/* BOTÃO CARD */
 .game-card button {
   width: 100%;
   padding: 10px;
@@ -163,44 +157,40 @@ body {
   color: #000;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-.game-card button:hover {
-  filter: brightness(1.15);
+.game-card button:disabled {
+  cursor: not-allowed;
 }
 
-/* BOTÃO DE SOM */
+/* SOM */
 .sound-btn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 14px;
+  right: 14px;
   background: #111;
   color: #e0b15c;
   border: 1px solid #e0b15c;
   border-radius: 50px;
-  padding: 10px 16px;
-  cursor: pointer;
+  padding: 8px 14px;
   font-weight: bold;
-  box-shadow: 0 0 15px rgba(224, 177, 92, 0.3);
+  cursor: pointer;
 }
 
-.sound-btn:hover {
-  background: #1b1b1b;
-}
-
-/* RESPONSIVO */
+/* MOBILE */
 @media (max-width: 600px) {
   .topbar {
     flex-direction: column;
     gap: 10px;
+    text-align: center;
+  }
+
+  .logo-img {
+    width: 48px;
+    height: 48px;
   }
 
   .lobby-banner h1 {
-    font-size: 24px;
-  }
-
-  .games {
-    padding: 20px;
+    font-size: 22px;
   }
 }
