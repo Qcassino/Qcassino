@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Lobby - QCassino</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="lobby.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="lobby.css" />
 </head>
 <body>
 
@@ -14,74 +14,68 @@
   <header class="topbar">
 
     <div class="user-info">
-        Seu Nome : <span id="nomeUsuario">---</span><br>
-        R$: <span id="saldo">0</span>
-        
-        <button id="btnAdmin" class="btn danger" style="display:none;">
+      Seu Nome: <strong id="nomeUsuario">Queven</strong><br />
+      Saldo: R$ <strong id="saldo">49.08</strong><br />
+      <button id="btnAdmin" class="btn danger" style="display:none;">
         🛠 Painel Admin
-</button>
-</div>
-
-    <div class="logo">
-      <img src="ChatGPT.png" alt="QCasino" class="logo-img">
-      <button id="sair" onclick="sair()" class="btn danger">🚪 Sair</button>
+      </button>
     </div>
-    
-   
+
+    <div class="logo-area">
+      <img src="ChatGPT.png" alt="QCassino" class="logo-img" />
+      <button onclick="sair()" class="btn danger">🚪 Sair</button>
+    </div>
+
   </header>
 
   <!-- BANNER -->
   <section class="lobby-banner">
     <h1>Bem-vindo ao QCASSINO</h1>
-    <p>Aposte com inteligência !!  A sorte gira rápido.</p>
+    <p>Aposte com inteligência. A sorte gira rápido.</p>
   </section>
 
   <!-- JOGOS -->
   <section class="games">
 
     <div class="game-card">
-      <div id="Coringa" class="Coringa"><img src="Joker.png"> </div>
-      <h3>Caça-Níquel Do Coringa</h3>
+      <div class="game-img">
+        <img src="Joker.png" alt="Coringa">
+      </div>
+      <h3>Caça-Níquel do Coringa</h3>
       <p>Gire e ganhe prêmios</p>
-      <button onclick="window.location.href='slot.html'">
-        Jogar
-      </button>
+      <button onclick="location.href='slot.html'">Jogar</button>
     </div>
 
     <div class="game-card">
-     <div id="Coringa" class="Coringa"><img src="Joker.png"> </div>
-      <h3>Crash Do DragonBall Z</h3>
-      <p>Venha Conheçer o Crash Do DragonBall Z</p>
-      <button onclick="window.location.href='crash.html'">
-        Jogar
-      </button>
+      <div class="game-img">
+        <img src="Joker.png" alt="Crash">
+      </div>
+      <h3>Crash Dragon Ball Z</h3>
+      <p>Multiplicador explosivo</p>
+      <button onclick="location.href='crash.html'">Jogar</button>
     </div>
 
-    <div class="game-card">
+    <div class="game-card disabled">
       <div class="icon">🃏</div>
       <h3>Blackjack</h3>
       <p>21 ou nada</p>
-      <button>EM BREVE</button>
+      <button disabled>EM BREVE</button>
     </div>
 
-    <div class="game-card">
-      <div class="icon">💎</div>
+    <div class="game-card disabled">
+      <div class="icon">🎯</div>
       <h3>Roleta</h3>
       <p>Vermelho ou Preto</p>
-      <button>EM BREVE</button>
+      <button disabled>EM BREVE</button>
     </div>
 
   </section>
 
 </div>
-<!-- ÁUDIOS -->
-<audio id="sound-bg" src="sounds/casino.mp3" loop></audio>
-<audio id="sound-hover" src="sounds/hover.mp3"></audio>
-<audio id="sound-click" src="click.mp3"></audio>
 
-<button id="soundToggle" class="sound-btn">
-  🔊 Som
-</button>
+<!-- BOTÃO SOM -->
+<button class="sound-btn">🔊 Som</button>
+
 <script type="module" src="lobby.js"></script>
 </body>
 </html>
